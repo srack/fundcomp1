@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <math.h>
+#include "gfx.h"
+
+
+int main (void) {
+	
+	gfx_open(500, 500, "Window") ;
+	while (1) {	
+		int i , j;
+		for ( j = 0 ; j < 400 ; j++) {
+			for (i = j ; i < 50+j ; i++) {	
+				gfx_point(250, 0+i) ;
+			}
+			gfx_flush() ;
+			usleep(5000) ;
+			gfx_clear() ;
+		}
+	}
+
+
+
+}

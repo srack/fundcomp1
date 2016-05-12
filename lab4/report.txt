@@ -1,0 +1,38 @@
+Samantha Rack CSE 20211 Lab 4
+
+When the user runs the program carnival.c, he or she observes a carnival ride.  The only user interaction with the program is 'q' to quit and 'p' to pause the 
+program for 3 seconds so they can better see the image while it is stationary.  While the program runs, there are four axes of motion.  The base of the carnival 
+ride is a vertical pole that slides up and down.  The next axis of motion observable is a slider that moves horizontally with the remainder of the elements 
+attached to it.  Moving outward, an arm secured on the horizontal slider rotates above the line of the horizontal slider, spanning pi radians.  At the end of 
+this arm is a spinner with four arms, each holding a ride car with two people in it.  The ride appears to be flashing.
+
+From the perspective of writing the code, this program uses nested functions to accomplish the various movements of the whole ride.  Each axis of motion had a 
+function designated to its movement.  The only function called in the main function was draw_vert_slider, which was responsible for the up and down motion
+of the ride.  This was executed using the sin function to produce periodic motion.  The next function called, draw_horiz_slider, was placed within draw_vert_slider
+and relied on the parameters of and the varibles specified within draw_vert_slider.  draw_horiz_slider demonstrated periodic motion similar to draw_vert_slider, 
+but this was executed in the x direction.  The argument within the sin function used the same parameter of draw_vert_slider, but to produce a difference in
+the periods of the two sliders, there was a different multiple of theta within draw_horiz_slider.  Within draw_horiz_slider, draw_spinner was called, again using
+as its arguments the parameters and variables within draw_horiz_slider.  This function invoked an if statement to keep the rotational motion of the arm above
+the line of horizontal slider.  If the remainder of theta divided by 2*pi was less than theta, the function determined the position of the spinner based on
+counterclockwise motion; otherwise, it would take the opposite of theta to ensure the arm's location above the line of horizontal slider.  This remainder was
+found using fmod, a function similar to the modular function but finds the remainder of variables of type double.  At the end of the function, draw_spinner calls
+draw_little_spinner, with its position arguments being those which correspond to the endpoint of draw_spinner.  draw_little_spinner is similar to draw_spinner, 
+but draws four arms coming out of the central point.  It also rotates in the opposite direction (by using the opposite sign of theta used in draw_spinner) at a
+faster rate (by multiplying theta by a constant greater than that by which theta is multiplied for draw_spinner).  Within the function draw_little_spinner, a for
+loop is used to draw each extending arm.  The for loop increments by pi/4 to make the arms equidistant around the center point, and a line is drawn using gfx_line
+from the center to the end point.  Also within the for loop is the draw_car function, which draws a ride car for each of the four arms.  This function draws a box
+centered at the endpoint of the arm drawn by draw_little_spinner.  The draw_car function calls draw_people twice to display two people's heads, necks, and arms
+inside the car.  draw_people uses gfx_line as well as a function draw_circle to perform the necessary actions.
+
+As is mentioned above, the only defined function used in the main function is draw_vert_slider because all other functions are nested within it and it takes all
+arguments necessary for calculation of the parameters of the nested functions.  draw_vert_slider is called within a while loop that runs while the variable 
+stillgoing is true.  This variable is only changed if gfx_event_waiting is true (ie. the user has done an action) and gfx_wait is 'q'.  The program ends at this
+time.  Within the while loop, all necessary aspects of animation are included.  The variable theta is one of the arguments of draw_vert_slider and is the cause
+of the motion of the carnival ride using parametric animation.  It is incremented each time through the while loop.  To cause the ride to appear to be flashing, 
+gfx_color is called after the screen is cleared in the loop.  The arguments of gfx_color are randomized at the end of the loop (using rand) to make the color 
+change as often as the location of each line changes, giving it the appearance of flashing lights.  
+
+The correctness of the program was checked by testing each function by itself before including it nested within another function.  This test showed that 
+each function properly performed the task for which it was designated and would in turn perform that task when used with other functions to create the whole 
+animation.
+

@@ -1,0 +1,39 @@
+Samantha Rack
+CSE 20211
+Lab 7
+
+When life.c is run by the user without the scenes read in for the inputs, a blank board is displayed, and the user is prompted to choose either a to add a new live 
+cell, r to remove a cell, n to move to the next phase of life, q to quit, or p to play the game indefinitely.  When adding or removing a cell, the user inputs a or
+r, then is prompted for the location, which is entered as the column number first, then the row (x-y).  The board updates accordingly whenever the user chooses one
+of the options.  However, once p is chosen, the program runs without accepting new input, updating the board using the rules of life every second.
+When run with one of the prepared scenes, the user only observes as the program runs indefinitely.  scene4 begins with a small number of live cells, but demonstrates
+a large amount of activity before settling into an oscillation of period three.  As scene5 runs, its behavior is symmetric over a y axis in the middle of the board,
+and it demonstrates intermediate behavior containing still life and oscillating objects that are reactivated by surrounding live cells.  When it settles into its 
+final stage, scene5 contains both oscillators and still life.  Also in its intermediate phases, scene5 repeats its earlier developments in one section of the 
+board.  
+In its main function, life.c initializes the board (using nested for loops to initialize each elements to ' ') and then implements a while loop, which continues to 
+ask for input until stillgoing = 0 (this only occurs when the user presses 'q').  This while loop clears the screen using printf, implements copy_board and 
+print_board (to print the updated board to the screen; this function uses nested for loops to print each element of the array board).  copy_board is necessary because
+two arrays are used to keep track of each generation of life- the future board is copied into current board, which is then printed.  After the updated board is
+printed, printf is used to ask for a selection, then scanf reads in the user's response.  THis response is used as an argument (along with the array board)for the 
+function user_action.  user_action is a function containing a switch statement with cases corresponding to the user's possible choices.  The function returns either
+0 (for 'q' option; this value is assigned to stillgoing in main), or 1 for any other option.  Case 'a' calls add_cell and case 'r' calls remove_cell, which work
+similarly. 'n' calls apply_rules once, then returns to main, and 'p' enters a non-terminating while loop that calls apply_rules, copy_board (as described above),
+printf to clear the screen, and usleep to pause the application of the rules for half of a second.  
+The functions add_cell and remove_cell both ask the user for a position, and change the value of array board at the given indices to X (for add_cell) or ' ' (for
+remove_cell).  The function apply_rules, used with both case 'n' and case 'p', implements nested for loops to use the rules of life on the array current to update
+for the next generation and store the new phase in the array future.  This function calls count_neighbors, a function that returns an integer equal to the number
+of neighbors of a given cell (ie. number of live cells surrounding the cell).  count_neighbors also uses nested for loops, but only for values -1, 0, and 1 of i
+and j to increment neighbors for each X around the specified cell.  Conditions in the if statement allow neighbors to only be incremented if the X is found within
+the scope of the board (>=0 and < BOARD_SIZE) and if X is not found at the cell itself.
+Each of the scenes (ie. scene1.life) is a file containing strings that correspond to requested user actions in life.c. When life.c is run by reading one of the 
+scenes, the scene file is passed as a character stream in place of each of the requested user inputs (accepted for scanf).  The scenes all contain the location
+of added live cells, and end with p to begin the game of life for the specified initial conditions.
+The program life.c was tested for correctness by inserting '.' in place of the ' ' of the blank board to ensure that adding and removing cells were going to 
+correct positions.  Additionally, 'n' was used to ensure that the rules of the game of life were implemented correctly at each step, especially at edges and
+corners of the board.  
+
+   
+
+
+

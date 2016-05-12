@@ -1,0 +1,15 @@
+	The program created for Part 3 : Custom Calculator of Lab 1 calculates 
+where a ball would land after being thrown.  The user is asked to input the
+height (with respect to the ground) at which the arm releases the ball, the 
+upward angle of projection of the ball, and the velocity of the ball at 
+release.  The output is the distance away the ball would land, given the 
+specifications.
+	The program is structured to request and receive the inputs of the user 
+using printf and scanf, check that the values are valid for the problem using
+if statements, calculate the needed values using projectile mechanics, and 
+display the results to the user.
+	The program was checked for correctness by using a calculator and the 
+mechanics equations to evaluate arbitrary possible situations.  The program
+was verified to produce correct answers at extreme values (arm height = 0, 
+velocity = 0, angle = 0 and angle = 90), as well as at chosen, feasible 
+situations (ie. arm height = 2 m, velocity = 3 m/s, and angle = 45 degrees). 

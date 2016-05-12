@@ -1,0 +1,26 @@
+Mitchell Patin and Samantha Rack
+Nov 25 2013
+Lab 9
+
+This program prompts the user for 20 strings under 15 characters in length. The user 
+can enter '.' to indicate they are done entering words. With this list of words, the 
+program creates a solved crossword puzzle with the words intersecting each other. 
+The program then blanks the board so the user can play and display clues at the 
+bottom with the words jumbled. The words entered must be less than 16 characters in 
+length and only contain alphabetic characters. Otherwise, the program will display 
+an error message and prompt the user for another input. If all of the words cannot 
+be placed, an error message will be displayed and the words already placed will be 
+displayed.
+
+The main funciton defines a variety of arrays including the solved and unsolved 
+boards as well as the list of words and their clues. The main method then calls 
+get_words to prompt the user for their list of words. Using this list, the program 
+calls initialize board to fill the board with periods. place_words then places the 
+words in the correct manner on this solved board. The solved board is then printed 
+for the user to see. After this, the board is blanked using the blank_board 
+function. This unsolved board is then printed for the user to solve on paper. 
+make_clues is then called to jumble the words. Lastly, print_clues displays this 
+list, the starting location and the orientation of each word. To verify that the 
+output of the program was correct, we used a variety of inputs with errors 
+attempting to trick the program. In addition, we carefully checked each function's 
+reliability at the time it was created. 

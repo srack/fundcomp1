@@ -1,0 +1,36 @@
+CSE 20211
+Lab 3 Report 
+Samantha Rack
+
+For Part 3: Rotating Animation, a program rotate.c was created that draws a car racing around a track.  The car is able to speed up, slow down,
+change color, and move closer to and further away from the inside of the track.  If the car moved outside of the domain of the track, the program
+stops the car, clears the screen, displays "CRASH", and closes the window.  
+From the user's perspective, the program opens and begins the movement of the car around an elliptical race track.  The user can simply observe
+the elliptical motion of the car, or he or she can adjust variables that affect the car using the keyboard.  When the user presses 'u' or 'd', the
+car speeds up or slows down, respectively.  The user can change the color of the car to another random color by pressing 'c'.  The user can also
+change how close the car is to the inside of the race track by pressing 'l' (to move it closer to the inside) or 'r' (to move it further away).  
+There are two ways for the program to finish.  One option is for the user to press 'q'.  The program can also end, however, if the user brings the
+car to the boundary of the track (either too far inside or outside).  If this occurs, the program clears the screen, displays 'CRASH!', and then 
+closes.
+The program works internally as a parametric animation loop.  It begins by defining and initializing necessary variables.  Then, it has a while loop
+that relies on the condition of keepgoing == 1.  This variables is only changed for specific conditions when the program will end.  Within the loop,
+the screen clears, the car and ellipses for the racetrack are drawn, the output is flushed to the screen, the program sleeps, and variables are checked
+and updated.  At then end of the loop, there is an if statement with the condition gfx_event_waiting() which executes if the user completes
+an action (like typing on the keyboard).  If this is true, then statements execute based on which key the user typed.  If they type 'u' or 'd', the 
+angular velocity updates for the next time through the loop, and the car will speed up or slow down.  If they type 'l' or 'r' the radii of the elliptical
+path the car travels will be increased or decreased so that the car moves closer or further away from the center.  If they type a 'c', the function rand()
+is used with modulus to choose random values between 20 and 255 (not 0-255 because it could return a black car) that are used with gfx_color the next time 
+through the loop.  If the user types 'q', keepgoing is set to equal 0, and the while loop terminates.  
+The car location is updated each time through the loop within an if statement.  The if statement's purpose is the ensure that if the angular velocity is
+adjusted to equal zero, then the car will stop where it is, and not return to it's starting place.  Time is not incremented if the car is not moving because
+it will adjust where the car will restart its motion.  If omega does not equal 0, then the car's location is recalculated by finding the location of each
+of its vertices. 
+Also within the while loop is a check for if the car crashed (left the domain of the track) and a reset of the time each time around the ellipse.  The
+distance the car is away from the center of the window is compared with the radii of the inner and outer loops of the racetrack to determine if it has 
+crashed.  If it has, the if body executes, clearing the screen, drawing the word 'CRASH!', and ending the program by setting keepgoing equal to 0.  The time
+incremented in the program is reset when the car travels to where it began for the purpose of reducing the increased effect of speeding up the car as time
+increases.  Because 'u' and 'd' increase or decrease omega and this value is multiplied by the incremented time, the speed of periodic motion around the ellipse
+is exagerated as time increases, causing the car to jump ahead or behind.  To reduce the effect of this, the time is reset.
+The output of the car's rotation was verified by, in intermediate tests of the program, printing the time when 't' was pressed and using the equations for the
+vertices of the car and a calculator to compare to the program's given location of the car.  Verification of the slowing down, speeding up, and lateral movement
+of the car was determined through testing the program and observing the effects of each user command.  
